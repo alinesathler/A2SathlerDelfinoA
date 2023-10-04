@@ -12,25 +12,36 @@ using System.Threading.Tasks;
 
 namespace A2SathlerDelfinoA {
     class Program {
+        //Method to read a string
         static string ReadString(string prompt) {
             Console.Write(prompt);
 
             return Console.ReadLine();
         }
 
-        static int ReadInt(string prompt, int minimun, int maximun) {
-            string stringValue = ReadString(prompt);
-            do {
-                Console.Write("Please, enter your 5-digits ID: ");
-                customerIDString = Console.ReadLine();
+        //Method to read a integer between two predefined values, if isShowValue is true enable the show to range to the user
+        static int ReadInt(string prompt, int minimun, int maximun, bool isShowValue = true) {
+            string valueString;
+            int valueInt;
+            bool isValueOk = false;
 
-                //Check if customerID is a 5-digit integer
-                if (int.TryParse(customerIDString, out customerID) && (0 <= customerID) && (99999 >= customerID)) {
-                    isIDOk = true;
+            do {
+                if(isShowValue) { 
+                    Console.Write($"{prompt} (between {minimun} and {maximun}): ");
                 } else {
-                    Console.Write("Invalid ID. Try again.\n");
+                    Console.Write(prompt);
                 }
-            } while (isIDOk != true);
+                valueString = Console.ReadLine();
+
+                //Check if the input is a integer between minimun and maximun
+                if (int.TryParse(valueString, out valueInt) && (minimun <= valueInt) && (maximun >= valueInt)) {
+                    isValueOk = true;
+                } else {
+                    Console.Write("Invalid input. Try again.\n");
+                }
+            } while (isValueOk != true);
+
+            return valueInt;
         }
 
         static void Main() {
@@ -50,9 +61,9 @@ namespace A2SathlerDelfinoA {
             //*****
 
             //Variables
-            string customerName, customerIDString, unitConsumedString, subsidyString;
+            string customerName, unitConsumedString;
             int customerID, unitConsumed, subsidy;
-            bool isIDOk = false, isUnitConsumedOk = false, isSubsidyOk = false;
+            bool isUnitConsumedOk = false;
             double charge, amountCharges, surchargeAmount = 0, subsidyAmount = 0, taxAmount, totalAmount;
 
             Console.WriteLine($"Calculate Electricity Bill");
@@ -62,17 +73,7 @@ namespace A2SathlerDelfinoA {
             customerName = ReadString("Please, enter your name: ");
 
             //Customer enters its ID: customerID
-            do {
-                Console.Write("Please, enter your 5-digits ID: ");
-                customerIDString = Console.ReadLine();
-
-                //Check if customerID is a 5-digit integer
-                if (int.TryParse(customerIDString, out customerID) && (0 <= customerID) && (99999 >= customerID)) {
-                    isIDOk = true;
-                } else {
-                    Console.Write("Invalid ID. Try again.\n");
-                }
-            } while (isIDOk != true);
+            customerID = ReadInt("Please, enter your 5-digits ID", 0, 99999);
 
             //Customer enters its unit consumed: unitConsumed
             do {
@@ -88,17 +89,7 @@ namespace A2SathlerDelfinoA {
             } while (isUnitConsumedOk != true);
 
             //Customer enters if subsidy is applicable: subsidy
-            do {
-                Console.Write("Do you have a subsidy (1: Yes, 0: No)? ");
-                subsidyString = Console.ReadLine();
-
-                //Check if subsidy is 0 or 1
-                if (int.TryParse(subsidyString, out subsidy) && ((subsidy == 0) || (subsidy == 1))) {
-                    isSubsidyOk = true;
-                } else {
-                    Console.Write("Invalid input. Try again.\n");
-                }
-            } while (isSubsidyOk != true);
+            subsidy = ReadInt("Do you have a subsidy (1: Yes, 0: No)? ", 0, 1, false);
 
             Console.Clear();
 
