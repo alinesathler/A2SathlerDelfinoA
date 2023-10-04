@@ -19,7 +19,7 @@ namespace A2SathlerDelfinoA {
             return Console.ReadLine();
         }
 
-        //Method to read a integer between two predefined values, if isShowValue is true enable the show to range to the user
+        //Method to read a integer between two predefined values, if isShowValue is true enable the show the range to the user
         static int ReadInt(string prompt, int minimun, int maximun, bool isShowValue = true) {
             string valueString;
             int valueInt;
@@ -61,9 +61,8 @@ namespace A2SathlerDelfinoA {
             //*****
 
             //Variables
-            string customerName, unitConsumedString;
+            string customerName;
             int customerID, unitConsumed, subsidy;
-            bool isUnitConsumedOk = false;
             double charge, amountCharges, surchargeAmount = 0, subsidyAmount = 0, taxAmount, totalAmount;
 
             Console.WriteLine($"Calculate Electricity Bill");
@@ -76,17 +75,7 @@ namespace A2SathlerDelfinoA {
             customerID = ReadInt("Please, enter your 5-digits ID", 0, 99999);
 
             //Customer enters its unit consumed: unitConsumed
-            do {
-                Console.Write("Please, enter your unit consumed: ");
-                unitConsumedString = Console.ReadLine();
-
-                //Check if unitConsumed is an integer
-                if (int.TryParse(unitConsumedString, out unitConsumed) && (0 <= unitConsumed)) {
-                    isUnitConsumedOk = true;
-                } else {
-                    Console.Write("Invalid unit consumed. Try again.\n");
-                }
-            } while (isUnitConsumedOk != true);
+            unitConsumed = ReadInt("Please, enter your unit consumed: ", 0, 99999999, false);
 
             //Customer enters if subsidy is applicable: subsidy
             subsidy = ReadInt("Do you have a subsidy (1: Yes, 0: No)? ", 0, 1, false);
