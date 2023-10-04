@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 //Aline Sathler Delfino - Assignment 2
 //Name of Project: Electricity Bill
 //Purpose: C# console application to calculate and print the electricity bill of a customer
-//Revision History: REV00 - 2023/09/27 - Initial version
+//Revision History:
+                    //REV00 - 2023/09/27 - Initial version
+                    //REV01 - 2023 / 10 / 04 - Refactoring the code using methods
 
 
 namespace A2SathlerDelfinoA {
