@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,8 @@ using System.Threading.Tasks;
 //Purpose: C# console application to calculate and print the electricity bill of a customer
 //Revision History:
                     //REV00 - 2023/09/27 - Initial version
-                    //REV01 - 2023 / 10 / 04 - Refactoring the code using methods
+                    //REV01 - 2023/10/04 - Refactoring the code using methods
+                    //REV02 - 2023/10/07 - Refactoring the code using loops (do...while)
 
 
 namespace A2SathlerDelfinoA {
@@ -60,12 +62,15 @@ namespace A2SathlerDelfinoA {
 
             //Government subsidy if applicable @0.1635
             const double GOVSUBSIDY = 0.1635;
-            //*****
+            //---------------------
 
             //Variables
             string customerName;
             int customerID, unitConsumed, subsidy;
             double charge, amountCharges, surchargeAmount = 0, subsidyAmount = 0, taxAmount, totalAmount;
+
+            //Change the color to cyan
+            Console.ForegroundColor = ConsoleColor.Cyan;
 
             Console.WriteLine($"Calculate Electricity Bill");
             Console.WriteLine($"----------------------------");
@@ -77,7 +82,7 @@ namespace A2SathlerDelfinoA {
             customerID = ReadInt("Please, enter your 5-digits ID", 0, 99999);
 
             //Customer enters its unit consumed: unitConsumed
-            unitConsumed = ReadInt("Please, enter your unit consumed: ", 0, 99999999, false);
+            unitConsumed = ReadInt("Please, enter your unit consumed: ", 0, 999999999, false);
 
             //Customer enters if subsidy is applicable: subsidy
             subsidy = ReadInt("Do you have a subsidy (1: Yes, 0: No)? ", 0, 1, false);
@@ -119,11 +124,11 @@ namespace A2SathlerDelfinoA {
             Console.WriteLine($"Customer IDNO:\t\t\t\t{customerID.ToString("D5")}");
             Console.WriteLine($"Customer Name:\t\t\t\t{customerName}");
             Console.WriteLine($"Unit Consumed:\t\t\t\t{unitConsumed}");
-            Console.WriteLine($"Amount Charges @{charge} per unit:\t\t{amountCharges.ToString("F")}");
-            Console.WriteLine($"Surcharge Amount:\t\t\t{surchargeAmount.ToString("F")}");
-            Console.WriteLine($"Subsidy Amount:\t\t\t\t{subsidyAmount.ToString("F")}");
-            Console.WriteLine($"Tax Amount:\t\t\t\t{taxAmount.ToString("F")}");
-            Console.WriteLine($"Net Amount Paid By the Customer:\t{totalAmount.ToString("F")}");
+            Console.WriteLine($"Amount Charges @{charge} per unit:\t\t{amountCharges.ToString("F", CultureInfo.CreateSpecificCulture("en-CA"))}");
+            Console.WriteLine($"Surcharge Amount:\t\t\t{surchargeAmount.ToString("F", CultureInfo.CreateSpecificCulture("en-CA"))}");
+            Console.WriteLine($"Subsidy Amount:\t\t\t\t{subsidyAmount.ToString("F", CultureInfo.CreateSpecificCulture("en-CA"))}");
+            Console.WriteLine($"Tax Amount:\t\t\t\t{taxAmount.ToString("F", CultureInfo.CreateSpecificCulture("en-CA"))}");
+            Console.WriteLine($"Net Amount Paid By the Customer:\t{totalAmount.ToString("F", CultureInfo.CreateSpecificCulture("en-CA"))}");
         }
     }
 }
